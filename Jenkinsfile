@@ -8,15 +8,25 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                bat 'echo Building Portfolio Website'
+                bat 'docker build -t portfolio-website .'
             }
         }
 
-        stage('List Files') {
+        stage('Stop Old Container') {
             steps {
-                bat 'dir'
+                bat '''
+                docker stop portfolio 2>nul
+                docker rm portfolio 2>nul
+                exit /b 0
+                '''
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                bat 'docker run -d --name portfolio -p 8081:80 portfolio-website'
             }
         }
     }
