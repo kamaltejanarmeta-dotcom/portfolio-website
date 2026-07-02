@@ -1,0 +1,15 @@
+body{
+    font-family: Arial;
+    text-align:center;
+    background:#f4f4f4;
+}
+
+nav a{
+    margin:15px;
+    text-decoration:none;
+    color:blue;
+}
+
+h1{
+    color:#333;
+}
