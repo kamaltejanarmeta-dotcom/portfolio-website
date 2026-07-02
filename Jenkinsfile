@@ -14,17 +14,16 @@ pipeline {
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Stop Existing Container') {
             steps {
                 bat '''
-                docker stop portfolio 2>nul
-                docker rm portfolio 2>nul
-                exit /b 0
+                docker stop portfolio || exit /b 0
+                docker rm portfolio || exit /b 0
                 '''
             }
         }
 
-        stage('Run Container') {
+        stage('Run Docker Container') {
             steps {
                 bat 'docker run -d --name portfolio -p 8081:80 portfolio-website'
             }
